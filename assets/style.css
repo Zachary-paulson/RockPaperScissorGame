@@ -1,0 +1,53 @@
+body{
+    background: green;
+}
+
+#gamebanner{
+    position: relative;
+    top: 15px;
+}
+
+#scoreBoard{
+    text-align: center;
+    background: pink;
+    height: 64px;
+}
+
+#scoreBoard h2{
+    position: relative;
+    top: 12px;
+    float: left;
+    margin-right: 40px;
+}
+
+.battleArena{
+    background: purple;
+    height: 250px;
+}
+
+#chatWindow{
+    background: yellow;
+}
+
+#playerBtns{
+    background: blue;
+    height: 64px;
+}
+
+#attackBtns{
+    position: relative;
+    top: 12px;
+    float: left;
+    
+}
+#attackBtns button{
+    margin-right: 40px;
+    width: 100px;
+    
+}
+
+#confirmationBtns{
+    position: relative;
+    top: 12px;
+    float: right;
+}

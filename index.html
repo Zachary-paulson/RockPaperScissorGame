@@ -14,9 +14,72 @@
 
     <title>RPS Game Online</title>
 </head>
+<!-- Nav Bar -->
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+</nav>
+
+<!-- game banner -->
+<div class="container" id="gamebanner">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-4">RPS Battle Arena</h1>
+                    <p class="lead">Fight to the death in the online RPS Arena!</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 
 <body>
-    <h1>This is for testing</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12" id="scoreBoard">
+                <h2>Wins: 1</h2>
+                <h2>Losses: 2</h2>
+                <h2>Draws: 3</h2>
+            </div>
+        </div>
+        <div class="row" id="GameBoard">
+            <div class="col-sm-9">
+                <div class="row battleArena" >
+                    <div class="col-sm-12">
+                        <h2>PlayerOne picked Rock!</h2>
+                    </div>
+                </div>
+                <div class="row battleArena">
+                    <div class="col-sm-12">
+                        <h2>PlayerTwo picked Paper</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3" id="chatWindow">
+
+
+
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12" id="playerBtns">
+                <div id="attackBtns">
+                    <button type="button" class="btn btn-secondary" value="rock">Rock</button>
+                    <button type="button" class="btn btn-secondary" value="paper">Paper</button>
+                    <button type="button" class="btn btn-secondary" value="scissors">Scissors</button>
+                </div>
+
+                <div id="confirmationBtns">
+                    <button type="button" class="btn btn-secondary" value="attack">Attack!</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 
 
