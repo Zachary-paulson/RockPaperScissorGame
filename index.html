@@ -47,12 +47,12 @@
         <div class="row" id="GameBoard">
             <div class="col-sm-9">
                 <div class="row battleArena" >
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 playerTwo">
                         <h2>PlayerOne picked Rock!</h2>
                     </div>
                 </div>
                 <div class="row battleArena">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 playerOne">
                         <h2>PlayerTwo picked Paper</h2>
                     </div>
                 </div>
@@ -68,9 +68,9 @@
         <div class="row">
             <div class="col-sm-12" id="playerBtns">
                 <div id="attackBtns">
-                    <button type="button" class="btn btn-secondary" value="rock">Rock</button>
-                    <button type="button" class="btn btn-secondary" value="paper">Paper</button>
-                    <button type="button" class="btn btn-secondary" value="scissors">Scissors</button>
+                    <button type="button" class="btn btn-secondary plyrAtkBtn" value="rock">Rock</button>
+                    <button type="button" class="btn btn-secondary plyrAtkBtn" value="paper">Paper</button>
+                    <button type="button" class="btn btn-secondary plyrAtkBtn" value="scissors">Scissors</button>
                 </div>
 
                 <div id="confirmationBtns">
@@ -98,6 +98,10 @@
 
     <!-- JS Logic -->
     <script src="assets/main.js"></script>
+
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase.js"></script>
+
 </body>
 
 </html>
