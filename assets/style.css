@@ -1,5 +1,9 @@
 body{
-    background: green;
+    background: grey;
+}
+
+.main{
+    background: white;
 }
 
 #gamebanner{
@@ -7,30 +11,57 @@ body{
     top: 15px;
 }
 
-#scoreBoard{
+#playerInput{
     text-align: center;
-    background: pink;
     height: 64px;
+    border-bottom: 3px solid grey; 
 }
 
-#scoreBoard h2{
+#playerInput form{
     position: relative;
     top: 12px;
-    float: left;
-    margin-right: 40px;
+    float: right;
 }
 
 .battleArena{
-    background: purple;
-    height: 250px;
+    height: 500px;
+}
+
+.playerTwo, .playerOne{
+    position: relative;
+    top: 127px;
+}
+
+.playerTwo h2, .playerOne h2{
+    text-align: center;
+}
+
+.playerTwo img, .playerOne img{
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.scoreBoard{
+    position: relative;
+    top: 254px;
+    height: 64px;
+    border-top: 3px solid grey;
+    border-bottom: 3px solid grey;
+}
+
+.scoreBoard h2{
+    float: left;
+    margin: 15px 50px;
+    font-size: 32px;
 }
 
 #chatWindow{
-    background: yellow;
+    border-left: 3px solid grey;
+    border-bottom: 3px solid grey;
 }
 
 #playerBtns{
-    background: blue;
     height: 64px;
 }
 
@@ -38,16 +69,10 @@ body{
     position: relative;
     top: 12px;
     float: left;
-    
-}
-#attackBtns button{
-    margin-right: 40px;
-    width: 100px;
-    
 }
 
-#confirmationBtns{
-    position: relative;
-    top: 12px;
-    float: right;
+#attackBtns button{
+    margin: 0 50px;
+    width: 100px;
 }
+

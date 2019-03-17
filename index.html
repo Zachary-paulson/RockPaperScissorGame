@@ -36,26 +36,43 @@
 
 
 <body>
-    <div class="container">
+    <div class="container main">
         <div class="row">
-            <div class="col-sm-12" id="scoreBoard">
-                <h2>Wins: 1</h2>
-                <h2>Losses: 2</h2>
-                <h2>Draws: 3</h2>
+            <div class="col-sm-12" id="playerInput">
+                <form>
+                    <div class="form-row align-items-center">
+                        <div class="col-auto">
+                            <label class="sr-only" for="inlineFormInput">Name</label>
+                            <input type="text" class="form-control mb-2 usernameInput" id="inlineFormInput"
+                                placeholder="Username">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary mb-2 usernameInputBtn">Submit</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="row" id="GameBoard">
-            <div class="col-sm-9">
-                <div class="row battleArena" >
-                    <div class="col-sm-12 playerTwo">
-                        <h2>PlayerOne picked Rock!</h2>
+            <div class="col-sm-9 battleArena">
+                <div class="row">
+                    <div class="col-sm-6 playerTwo">
+                        <h2 id="playerOnePanel">Waiting for Player One</h2><br>
+                        <img src="assets/images/rock.png" alt="rock">
+                    </div>
+                    <div class="col-sm-6 playerOne">
+                        <h2 id="playerTwoPanel">Waiting for Player Two</h2><br>
+                        <img src="assets/images/paper.png" alt="paper">
                     </div>
                 </div>
-                <div class="row battleArena">
-                    <div class="col-sm-12 playerOne">
-                        <h2>PlayerTwo picked Paper</h2>
+                <div class="row">
+                    <div class="col-sm scoreBoard">
+                        <h2 id="win">Wins: 0</h2>
+                        <h2 id="lose">Losses: 0</h2>
+                        <h2 id="draw">Draws: 0</h2>
                     </div>
                 </div>
+
             </div>
             <div class="col-sm-3" id="chatWindow">
 
@@ -72,11 +89,6 @@
                     <button type="button" class="btn btn-secondary plyrAtkBtn" value="paper">Paper</button>
                     <button type="button" class="btn btn-secondary plyrAtkBtn" value="scissors">Scissors</button>
                 </div>
-
-                <div id="confirmationBtns">
-                    <button type="button" class="btn btn-secondary" value="attack">Attack!</button>
-                </div>
-
             </div>
         </div>
     </div>
