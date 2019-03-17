@@ -38,7 +38,11 @@
 <body>
     <div class="container main">
         <div class="row">
-            <div class="col-sm-12" id="playerInput">
+            <div class="col-sm-8 gmMsgContainer">
+                <h2 id="gmMsg"></h2>
+            </div>
+
+            <div class="col-sm-4" id="playerInput">
                 <form>
                     <div class="form-row align-items-center">
                         <div class="col-auto">
@@ -56,21 +60,26 @@
         <div class="row" id="GameBoard">
             <div class="col-sm-9 battleArena">
                 <div class="row">
-                    <div class="col-sm-6 playerTwo">
-                        <h2 id="playerOnePanel">Waiting for Player One</h2><br>
-                        <img src="assets/images/rock.png" alt="rock">
-                    </div>
                     <div class="col-sm-6 playerOne">
-                        <h2 id="playerTwoPanel">Waiting for Player Two</h2><br>
-                        <img src="assets/images/paper.png" alt="paper">
+                        <h2 id="playerOnePanel">Waiting for Player One...</h2><br>
+                        <!-- <img src="#" alt=""> -->
+                    </div>
+                    <div class="col-sm-6 playerTwo">
+                        <h2 id="playerTwoPanel">Waiting for Player Two...</h2><br>
+                        
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm scoreBoard">
-                        <h2 id="win">Wins: 0</h2>
-                        <h2 id="lose">Losses: 0</h2>
-                        <h2 id="draw">Draws: 0</h2>
+                    <div class="col-sm-6 scoreBoard ">
+                        <h2 id="plyOnewin"></h2>
+                        <h2 id="plyOneLose"></h2>
+                        <h2 id="plyOneDraw"></h2>
                     </div>
+                    <div class="col-sm-6 scoreBoard">
+                            <h2 id="plyTwoWin"></h2>
+                            <h2 id="plyTwoLose"></h2>
+                            <h2 id="plyTwoDraw"></h2>
+                        </div>
                 </div>
 
             </div>
@@ -83,12 +92,20 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-12" id="playerBtns">
-                <div id="attackBtns">
-                    <button type="button" class="btn btn-secondary plyrAtkBtn" value="rock">Rock</button>
-                    <button type="button" class="btn btn-secondary plyrAtkBtn" value="paper">Paper</button>
-                    <button type="button" class="btn btn-secondary plyrAtkBtn" value="scissors">Scissors</button>
+            <div class="col-sm-6">
+                <div class="attackBtns plyrOneBtn">
+                    <button type="button" class="btn btn-secondary plyrOneAtkBtn" value="rock">Rock</button>
+                    <button type="button" class="btn btn-secondary plyrOneAtkBtn" value="paper">Paper</button>
+                    <button type="button" class="btn btn-secondary plyrOneAtkBtn" value="scissors">Scissors</button>
                 </div>
+                
+            </div>
+            <div class="col-sm-6">
+                    <div class="attackBtns plyrtTwoBtn">
+                            <button type="button" class="btn btn-secondary plyrTwoAtkBtn" value="rock">Rock</button>
+                            <button type="button" class="btn btn-secondary plyrTwoAtkBtn" value="paper">Paper</button>
+                            <button type="button" class="btn btn-secondary plyrTwoAtkBtn" value="scissors">Scissors</button>
+                    </div>
             </div>
         </div>
     </div>

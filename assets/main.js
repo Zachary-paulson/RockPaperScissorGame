@@ -19,18 +19,22 @@ $(document).ready(function () {
         playerTwoName: "",
         playerOneAtk: "",
         playerTwoAtk: "",
+        playerOneScore: {
+            win: 0,
+            lose: 0,
+            draw: 0
+        },
+        playerTwoScore: {
+            win: 0,
+            lose: 0,
+            draw: 0
+        }
+
     };
 
     let game = {
-        gameState: ["win", "lose", "draw"],
         gamePiece: ["assets/images/rock.png", "assets/images/paper.png", "assets/images/scissor.png"],
-        scoreBoard: {
-            wins: 0,
-            losses: 0,
-            draws: 0
-        },
         turn: 0
-
     };
 
     //my database
@@ -42,8 +46,6 @@ $(document).ready(function () {
             players.playerOne = snapeshot.val().playerOne;
             players.playerOneName = players.playerOne.name;
             $("#playerOnePanel").text(players.playerOneName + " is ready to battle!");
-
-
         }
         else {
             players.playerOne = null;
@@ -54,7 +56,6 @@ $(document).ready(function () {
             players.playerTwo = snapeshot.val().playerTwo;
             players.playerTwoName = players.playerTwo.name;
             $("#playerTwoPanel").text(players.playerTwoName + " is ready to battle!");
-
         }
         else {
             players.playerTwo = null;
@@ -62,7 +63,7 @@ $(document).ready(function () {
         }
 
         if (players.playerOne && players.playerTwo) {
-            $("#playerOnePanel").text("Waiting on " + players.playerOneName + " to choose...");
+            $("#gmMsg").text("Waiting on " + players.playerOneName + " to choose...");
         }
     });
 
@@ -77,6 +78,9 @@ $(document).ready(function () {
                 console.log("Adding Player 1");
 
                 players.yourPlayerName = $(".usernameInput").val().trim();
+
+                $(".lead").text("Welcome to the battle " + players.yourPlayerName + "!");
+                
                 players.playerOne = {
                     name: players.yourPlayerName,
                     win: 0,
@@ -99,13 +103,17 @@ $(document).ready(function () {
                 console.log("Adding Player 2");
 
                 players.yourPlayerName = $(".usernameInput").val().trim();
+
+                $(".lead").text("Welcome to the battle " + players.yourPlayerName  + "!");
+
                 players.playerTwo = {
                     name: players.yourPlayerName,
                     win: 0,
                     loss: 0,
-                    tie: 0,
+                    draw: 0,
                     atk: ""
                 };
+                
 
                 // Add players.playerTwo to the database
                 database.ref().child("/players/playerTwo").set(players.playerTwo);
@@ -135,7 +143,7 @@ $(document).ready(function () {
 
             // Update the display if both players are in the game
             if (players.playerOne && players.playerTwo) {
-                $("#playerOnePanel").text("Waiting on " + players.playerOneName + " to choose...");
+                $("#gmMsg").text("Waiting on " + players.playerOneName + " to choose...");
             }
         } else if (snapshot.val() === 2) {
             console.log("TURN 2");
@@ -144,26 +152,32 @@ $(document).ready(function () {
             // Update the display if both players are in the game
             if (players.playerOne && players.playerTwo) {
                 console.log(players.playerTwoName);
-                $("#playerTwoPanel").text("Waiting on " + players.playerTwoName + " to choose...");
+                $("#gmMsg").text("Waiting on " + players.playerTwoName + " to choose...");
             }
         }
     });
 
     // button listener RPS buttons
-    $(".btn.plyrAtkBtn").on("click", function () {
+    $(".plyrOneAtkBtn").on("click", function () {
         if (players.playerOne && players.playerTwo) {
             if (game.turn === 1) {
+                console.log($(this).val());
                 database.ref().child("/players/playerOne/atk").set($(this).val());
                 $("#playerOnePanel").text(players.playerOneName + " is ready to attack");
                 game.turn = 2;
                 database.ref().child("/turn").set(2);
             }
-            else if (game.turn === 2) {
+        }
+    });
+
+    $(".plyrTwoAtkBtn").on("click", function () {
+        if (players.playerOne && players.playerTwo) {
+            if (game.turn === 2) {
+                console.log($(this).val());
                 database.ref().child("/players/playerTwo/atk").set($(this).val());
                 $("#playerTwoPanel").text(players.playerTwoName + " is ready to attack");
-                game.turn = 1;
+                //game.turn = 1;
                 database.ref().child("/turn").set(1);
-                
             }
         }
     });
@@ -194,20 +208,67 @@ $(document).ready(function () {
 
 
     function checkMatchWinner(players) {
-        $("#playerOnePanel").text(players.playerOneName + " choose" + players.playerOneAtk);
-        $("#playerTwoPanel").text(players.playerTwoName + " choose" + players.playerTwoAtk);
+        
+        $("#playerOnePanel").text(players.playerOneName + " choose " + players.playerOneAtk);
+        $("#playerTwoPanel").text(players.playerTwoName + " choose " + players.playerTwoAtk);
+
+        removeAtkImg();
+
+        $(".playerOne").append(setRpsImg(players.playerOneAtk));
+        $(".playerTwo").append(setRpsImg(players.playerTwoAtk));
     
         if (players.playerOneAtk === "rock" && players.playerTwoAtk === "scissors" || players.playerOneAtk === "paper" && players.playerTwoAtk === "rock" || players.playerOneAtk === "scissors" && players.playerTwoAtk === "paper") {
-            console.log("Player 2 wins");
+            database.ref().child("/players/playerOne/win").set(++players.playerOneScore.win);
+            database.ref().child("/players/playerTwo/loss").set(++players.playerTwoScore.lose);
         }
         else if (players.playerOneAtk === "rock" && players.playerTwoAtk === "paper" || players.playerOneAtk === "paper" && players.playerTwoAtk === "scissors" || players.playerOneAtk === "scissors" && players.playerTwoAtk === "rock") {
-            console.log("Player 2 wins");
+            database.ref().child("/players/playerOne/loss").set(++players.playerOneScore.lose);
+            database.ref().child("/players/playerTwo/win").set(++players.playerTwoScore.win);
         }
         else {
-            console.log("Draw!");
+            database.ref().child("/players/playerOne/draw").set(++players.playerOneScore.draw);
+            database.ref().child("/players/playerTwo/draw").set(++players.playerTwoScore.draw);
         }
-    
+
+        
+
+        updateScoreBoard(players.playerOneScore, players.playerTwoScore);
     };
+
+
+    function setRpsImg(atk){
+        let newImg = $("<img>");
+
+        switch (atk){
+            case "rock":
+                newImg.attr("src", game.gamePiece[0]);
+                break;
+            case "paper":
+                newImg.attr("src", game.gamePiece[1]);
+                break;
+            case "scissors":
+                newImg.attr("src", game.gamePiece[2]);
+                break;
+            default:
+                break;
+        }
+        return newImg;
+    }
+
+    function removeAtkImg(){
+        $(".playerOne").children("img").remove();
+        $(".playerTwo").children("img").remove();
+    }
+
+    function updateScoreBoard(plyrOneScore, plyrTwoScore){
+        $("#plyOnewin").text("Wins: " + plyrOneScore.win);
+        $("#plyOneLose").text("Losses: " + plyrOneScore.lose);
+        $("#plyOneDraw").text("Draw: " + plyrOneScore.draw);
+
+        $("#plyTwoWin").text("Wins: " + plyrTwoScore.win);
+        $("#plyTwoLose").text("Losses: " + plyrTwoScore.lose);
+        $("#plyTwoDraw").text("Draw: " + plyrTwoScore.draw);
+    }
 
 });
 

@@ -11,6 +11,20 @@ body{
     top: 15px;
 }
 
+.gmMsgContainer{
+    
+    border-bottom: 3px solid grey;
+}
+
+.gmMsgContainer h2{
+    position: relative;
+    top: 15px;
+    font-size: 32px;
+
+
+
+}
+
 #playerInput{
     text-align: center;
     height: 64px;
@@ -46,33 +60,39 @@ body{
     position: relative;
     top: 254px;
     height: 64px;
-    border-top: 3px solid grey;
-    border-bottom: 3px solid grey;
+    
 }
 
 .scoreBoard h2{
+    position: relative;
+    left: 85px;
     float: left;
-    margin: 15px 50px;
-    font-size: 32px;
+    margin: 0px 10px;
+    
+    font-size: 16px;
 }
 
 #chatWindow{
+    background: pink;
     border-left: 3px solid grey;
     border-bottom: 3px solid grey;
 }
 
-#playerBtns{
+.attackBtns{
     height: 64px;
 }
 
-#attackBtns{
+.plyrOneBtn, .plyrtTwoBtn{
     position: relative;
     top: 12px;
     float: left;
+    
+    
 }
 
 #attackBtns button{
-    margin: 0 50px;
+    float: left;
+    margin: 0 10px;
     width: 100px;
 }
 
