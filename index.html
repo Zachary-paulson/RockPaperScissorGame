@@ -66,7 +66,7 @@
                     </div>
                     <div class="col-sm-6 playerTwo">
                         <h2 id="playerTwoPanel">Waiting for Player Two...</h2><br>
-                        
+
                     </div>
                 </div>
                 <div class="row">
@@ -76,14 +76,40 @@
                         <h2 id="plyOneDraw"></h2>
                     </div>
                     <div class="col-sm-6 scoreBoard">
-                            <h2 id="plyTwoWin"></h2>
-                            <h2 id="plyTwoLose"></h2>
-                            <h2 id="plyTwoDraw"></h2>
-                        </div>
+                        <h2 id="plyTwoWin"></h2>
+                        <h2 id="plyTwoLose"></h2>
+                        <h2 id="plyTwoDraw"></h2>
+                    </div>
                 </div>
 
             </div>
             <div class="col-sm-3" id="chatWindow">
+                <div class="row chatMsg">
+                    <div class="col-am-auto chatDisplay">
+                            
+                    </div>
+                    
+                </div>
+
+                <div class="row chatInput">
+                    <div class="col-sm-auto">
+                        <hr>
+                            <form>
+                                    <div class="form-row align-items-center">
+                                        <div class="col-auto">
+                                            <label class="sr-only" for="inlineFormInput">Name</label>
+                                            <input type="text" class="form-control mb-2 chatInputDisplay" id="inlineFormInput"
+                                                placeholder="Msg...">
+                                        </div>
+                                        <div class="col-auto">
+                                            <button type="submit" class="btn btn-primary mb-2 chatInputBtn">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                    </div>
+                    
+                </div>
+                
 
 
 
@@ -98,14 +124,14 @@
                     <button type="button" class="btn btn-secondary plyrOneAtkBtn" value="paper">Paper</button>
                     <button type="button" class="btn btn-secondary plyrOneAtkBtn" value="scissors">Scissors</button>
                 </div>
-                
+
             </div>
             <div class="col-sm-6">
-                    <div class="attackBtns plyrtTwoBtn">
-                            <button type="button" class="btn btn-secondary plyrTwoAtkBtn" value="rock">Rock</button>
-                            <button type="button" class="btn btn-secondary plyrTwoAtkBtn" value="paper">Paper</button>
-                            <button type="button" class="btn btn-secondary plyrTwoAtkBtn" value="scissors">Scissors</button>
-                    </div>
+                <div class="attackBtns plyrtTwoBtn">
+                    <button type="button" class="btn btn-secondary plyrTwoAtkBtn" value="rock">Rock</button>
+                    <button type="button" class="btn btn-secondary plyrTwoAtkBtn" value="paper">Paper</button>
+                    <button type="button" class="btn btn-secondary plyrTwoAtkBtn" value="scissors">Scissors</button>
+                </div>
             </div>
         </div>
     </div>

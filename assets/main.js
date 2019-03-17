@@ -14,7 +14,7 @@ $(document).ready(function () {
     let players = {
         playerOne: null,
         playerTwo: null,
-        youPlayerName: "",
+        yourPlayerName: "",
         playerOneName: "",
         playerTwoName: "",
         playerOneAtk: "",
@@ -63,7 +63,13 @@ $(document).ready(function () {
         }
 
         if (players.playerOne && players.playerTwo) {
+            console.log("a");
             $("#gmMsg").text("Waiting on " + players.playerOneName + " to choose...");
+        }
+
+        if (!players.playerOne && !players.playerTwo) {
+            
+            
         }
     });
 
@@ -80,7 +86,7 @@ $(document).ready(function () {
                 players.yourPlayerName = $(".usernameInput").val().trim();
 
                 $(".lead").text("Welcome to the battle " + players.yourPlayerName + "!");
-                
+
                 players.playerOne = {
                     name: players.yourPlayerName,
                     win: 0,
@@ -104,7 +110,7 @@ $(document).ready(function () {
 
                 players.yourPlayerName = $(".usernameInput").val().trim();
 
-                $(".lead").text("Welcome to the battle " + players.yourPlayerName  + "!");
+                $(".lead").text("Welcome to the battle " + players.yourPlayerName + "!");
 
                 players.playerTwo = {
                     name: players.yourPlayerName,
@@ -113,13 +119,14 @@ $(document).ready(function () {
                     draw: 0,
                     atk: ""
                 };
-                
+
 
                 // Add players.playerTwo to the database
                 database.ref().child("/players/playerTwo").set(players.playerTwo);
 
                 // If this user disconnects by closing or refreshing the browser, remove the user from the database
                 database.ref("/players/playerTwo").onDisconnect().remove();
+                
 
 
             }
@@ -182,33 +189,63 @@ $(document).ready(function () {
         }
     });
 
-    database.ref("/players/playerOne/atk").on("value", function(snapshot){
-        
-        if (players.playerOne && players.playerTwo){
-            if(snapshot.val() != ""){
+    database.ref("/players/playerOne/atk").on("value", function (snapshot) {
+
+        if (players.playerOne && players.playerTwo) {
+            if (snapshot.val() != "") {
                 players.playerOneAtk = snapshot.val();
             }
-            
+
         }
     });
 
-    database.ref("/players/playerTwo/atk").on("value", function(snapshot){
-        
-        if (players.playerOne && players.playerTwo){
-            if(snapshot.val() != ""){
-            players.playerTwoAtk = snapshot.val();
+    database.ref("/players/playerTwo/atk").on("value", function (snapshot) {
 
-            //after Player one chooses and atk we need to check who one.
-            checkMatchWinner(players)
+        if (players.playerOne && players.playerTwo) {
+            if (snapshot.val() != "") {
+                players.playerTwoAtk = snapshot.val();
+
+                //after Player one chooses and atk we need to check who one.
+                checkMatchWinner(players)
             }
-            
+
         }
+    });
+
+    //chat
+    $(".chatInputBtn").on("click", function (event) {
+
+        console.log(players.yourPlayerName);
+        console.log($(".chatInputDisplay").val().trim());
+        event.preventDefault();
+
+        // First, make sure that the player exists and the message box is non-empty
+        if ((players.yourPlayerName !== "") && ($(".chatInputDisplay").val().trim() !== "")) {
+            console.log("Chat button was clicked");
+            // Grab the message from the input box and subsequently reset the input box
+            var msg = players.yourPlayerName + ": " + $(".chatInputDisplay").val().trim();
+            $(".chatInputDisplay").val("");
+
+            // Get a key for the new chat entry
+            var chatKey = database.ref().child("/chat/").push().key;
+
+            // Save the new chat entry
+            database.ref("/chat/" + chatKey).set(msg);
+        }
+    });
+
+    // Attach a listener to the database /chat/ node to listen for any new chat messages
+    database.ref("/chat/").on("child_added", function (snapshot) {
+        var chatMsg = snapshot.val();
+        var chatEntry = $("<p>").html(chatMsg);
+
+        $(".chatDisplay").append(chatEntry);
     });
 
 
 
     function checkMatchWinner(players) {
-        
+
         $("#playerOnePanel").text(players.playerOneName + " choose " + players.playerOneAtk);
         $("#playerTwoPanel").text(players.playerTwoName + " choose " + players.playerTwoAtk);
 
@@ -216,7 +253,7 @@ $(document).ready(function () {
 
         $(".playerOne").append(setRpsImg(players.playerOneAtk));
         $(".playerTwo").append(setRpsImg(players.playerTwoAtk));
-    
+
         if (players.playerOneAtk === "rock" && players.playerTwoAtk === "scissors" || players.playerOneAtk === "paper" && players.playerTwoAtk === "rock" || players.playerOneAtk === "scissors" && players.playerTwoAtk === "paper") {
             database.ref().child("/players/playerOne/win").set(++players.playerOneScore.win);
             database.ref().child("/players/playerTwo/loss").set(++players.playerTwoScore.lose);
@@ -230,16 +267,16 @@ $(document).ready(function () {
             database.ref().child("/players/playerTwo/draw").set(++players.playerTwoScore.draw);
         }
 
-        
+
 
         updateScoreBoard(players.playerOneScore, players.playerTwoScore);
     };
 
 
-    function setRpsImg(atk){
+    function setRpsImg(atk) {
         let newImg = $("<img>");
 
-        switch (atk){
+        switch (atk) {
             case "rock":
                 newImg.attr("src", game.gamePiece[0]);
                 break;
@@ -255,12 +292,12 @@ $(document).ready(function () {
         return newImg;
     }
 
-    function removeAtkImg(){
+    function removeAtkImg() {
         $(".playerOne").children("img").remove();
         $(".playerTwo").children("img").remove();
     }
 
-    function updateScoreBoard(plyrOneScore, plyrTwoScore){
+    function updateScoreBoard(plyrOneScore, plyrTwoScore) {
         $("#plyOnewin").text("Wins: " + plyrOneScore.win);
         $("#plyOneLose").text("Losses: " + plyrOneScore.lose);
         $("#plyOneDraw").text("Draw: " + plyrOneScore.draw);

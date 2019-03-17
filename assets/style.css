@@ -73,10 +73,22 @@ body{
 }
 
 #chatWindow{
-    background: pink;
     border-left: 3px solid grey;
     border-bottom: 3px solid grey;
 }
+
+.chatMsg{
+    background: pink;
+    margin: 5px;
+    height: 450px;
+    overflow: auto;
+}
+
+.chatInput form{
+    width: 110%;
+}
+
+
 
 .attackBtns{
     height: 64px;
