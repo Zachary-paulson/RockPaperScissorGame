@@ -78,7 +78,6 @@ body{
 }
 
 .chatMsg{
-    background: pink;
     margin: 5px;
     height: 450px;
     overflow: auto;

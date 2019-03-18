@@ -68,8 +68,8 @@ $(document).ready(function () {
         }
 
         if (!players.playerOne && !players.playerTwo) {
-            
-            
+
+
         }
     });
 
@@ -126,16 +126,11 @@ $(document).ready(function () {
 
                 // If this user disconnects by closing or refreshing the browser, remove the user from the database
                 database.ref("/players/playerTwo").onDisconnect().remove();
-                
-
-
             }
 
             // Add a user joining message to the chat
             var msg = players.yourPlayerName + " has joined!";
             console.log(msg);
-
-
 
             // Reset the name input box
             $(".usernameInput").val("");
@@ -245,31 +240,30 @@ $(document).ready(function () {
 
 
     function checkMatchWinner(players) {
+        if (players.playerOneAtk != "" && players.playerTwoAtk != "") {
+            $("#playerOnePanel").text(players.playerOneName + " choose " + players.playerOneAtk);
+            $("#playerTwoPanel").text(players.playerTwoName + " choose " + players.playerTwoAtk);
 
-        $("#playerOnePanel").text(players.playerOneName + " choose " + players.playerOneAtk);
-        $("#playerTwoPanel").text(players.playerTwoName + " choose " + players.playerTwoAtk);
+            removeAtkImg();
 
-        removeAtkImg();
+            $(".playerOne").append(setRpsImg(players.playerOneAtk));
+            $(".playerTwo").append(setRpsImg(players.playerTwoAtk));
 
-        $(".playerOne").append(setRpsImg(players.playerOneAtk));
-        $(".playerTwo").append(setRpsImg(players.playerTwoAtk));
+            if (players.playerOneAtk === "rock" && players.playerTwoAtk === "scissors" || players.playerOneAtk === "paper" && players.playerTwoAtk === "rock" || players.playerOneAtk === "scissors" && players.playerTwoAtk === "paper") {
+                database.ref().child("/players/playerOne/win").set(++players.playerOneScore.win);
+                database.ref().child("/players/playerTwo/loss").set(++players.playerTwoScore.lose);
+            }
+            else if (players.playerOneAtk === "rock" && players.playerTwoAtk === "paper" || players.playerOneAtk === "paper" && players.playerTwoAtk === "scissors" || players.playerOneAtk === "scissors" && players.playerTwoAtk === "rock") {
+                database.ref().child("/players/playerOne/loss").set(++players.playerOneScore.lose);
+                database.ref().child("/players/playerTwo/win").set(++players.playerTwoScore.win);
+            }
+            else if (players.playerOneAtk === "rock" && players.playerTwoAtk === "rock" || players.playerOneAtk === "paper" && players.playerTwoAtk === "paper" || players.playerOneAtk === "scissors" && players.playerTwoAtk === "scissors"){
+                database.ref().child("/players/playerOne/draw").set(++players.playerOneScore.draw);
+                database.ref().child("/players/playerTwo/draw").set(++players.playerTwoScore.draw);
+            }
 
-        if (players.playerOneAtk === "rock" && players.playerTwoAtk === "scissors" || players.playerOneAtk === "paper" && players.playerTwoAtk === "rock" || players.playerOneAtk === "scissors" && players.playerTwoAtk === "paper") {
-            database.ref().child("/players/playerOne/win").set(++players.playerOneScore.win);
-            database.ref().child("/players/playerTwo/loss").set(++players.playerTwoScore.lose);
+            updateScoreBoard(players.playerOneScore, players.playerTwoScore);
         }
-        else if (players.playerOneAtk === "rock" && players.playerTwoAtk === "paper" || players.playerOneAtk === "paper" && players.playerTwoAtk === "scissors" || players.playerOneAtk === "scissors" && players.playerTwoAtk === "rock") {
-            database.ref().child("/players/playerOne/loss").set(++players.playerOneScore.lose);
-            database.ref().child("/players/playerTwo/win").set(++players.playerTwoScore.win);
-        }
-        else {
-            database.ref().child("/players/playerOne/draw").set(++players.playerOneScore.draw);
-            database.ref().child("/players/playerTwo/draw").set(++players.playerTwoScore.draw);
-        }
-
-
-
-        updateScoreBoard(players.playerOneScore, players.playerTwoScore);
     };
 
 
