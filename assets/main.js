@@ -51,6 +51,7 @@ $(document).ready(function () {
             players.playerOne = null;
             players.playerOneName = "";
             database.ref("/chat/").remove();
+            database.ref("/turn.").remove();
         }
 
         if (snapeshot.child("playerTwo").exists()) {
@@ -62,6 +63,7 @@ $(document).ready(function () {
             players.playerTwo = null;
             players.playerTwoName = "";
             database.ref("/chat/").remove();
+            database.ref("/turn.").remove();
         }
 
         if (players.playerOne && players.playerTwo) {
