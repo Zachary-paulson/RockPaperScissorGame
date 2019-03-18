@@ -50,6 +50,7 @@ $(document).ready(function () {
         else {
             players.playerOne = null;
             players.playerOneName = "";
+            database.ref("/chat/").remove();
         }
 
         if (snapeshot.child("playerTwo").exists()) {
@@ -60,6 +61,7 @@ $(document).ready(function () {
         else {
             players.playerTwo = null;
             players.playerTwoName = "";
+            database.ref("/chat/").remove();
         }
 
         if (players.playerOne && players.playerTwo) {
@@ -68,7 +70,6 @@ $(document).ready(function () {
         }
 
         if (!players.playerOne && !players.playerTwo) {
-
 
         }
     });
@@ -119,8 +120,6 @@ $(document).ready(function () {
                     draw: 0,
                     atk: ""
                 };
-
-
                 // Add players.playerTwo to the database
                 database.ref().child("/players/playerTwo").set(players.playerTwo);
 
@@ -130,8 +129,6 @@ $(document).ready(function () {
 
             // Add a user joining message to the chat
             var msg = players.yourPlayerName + " has joined!";
-            console.log(msg);
-
             // Reset the name input box
             $(".usernameInput").val("");
         }
@@ -201,7 +198,7 @@ $(document).ready(function () {
                 players.playerTwoAtk = snapshot.val();
 
                 //after Player one chooses and atk we need to check who one.
-                checkMatchWinner(players)
+                checkMatchWinner(players);
             }
 
         }
@@ -209,14 +206,10 @@ $(document).ready(function () {
 
     //chat
     $(".chatInputBtn").on("click", function (event) {
-
-        console.log(players.yourPlayerName);
-        console.log($(".chatInputDisplay").val().trim());
         event.preventDefault();
 
         // First, make sure that the player exists and the message box is non-empty
         if ((players.yourPlayerName !== "") && ($(".chatInputDisplay").val().trim() !== "")) {
-            console.log("Chat button was clicked");
             // Grab the message from the input box and subsequently reset the input box
             var msg = players.yourPlayerName + ": " + $(".chatInputDisplay").val().trim();
             $(".chatInputDisplay").val("");
